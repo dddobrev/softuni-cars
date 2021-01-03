@@ -1,4 +1,4 @@
-package bg.softuni.cars.models.entities;
+package bg.softuni.cars.models.entities.enums;
 
 public enum VehicleCategoryEnum {
   CAR,

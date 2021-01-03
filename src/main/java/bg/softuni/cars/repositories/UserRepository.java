@@ -1,10 +1,10 @@
 package bg.softuni.cars.repositories;
 
-import bg.softuni.cars.models.entities.ModelEntity;
+import bg.softuni.cars.models.entities.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ModelRepository extends JpaRepository<ModelEntity, Integer> {
+public interface UserRepository extends JpaRepository<UserEntity, Integer> {
 
 }

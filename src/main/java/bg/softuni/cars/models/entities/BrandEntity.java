@@ -9,22 +9,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="brands")
-public class BrandEntity {
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+public class BrandEntity extends BaseEntity {
+
   private String name;
-  private Instant created;
-  private Instant modified;
-
-  public Long getId() {
-    return id;
-  }
-
-  public BrandEntity setId(Long id) {
-    this.id = id;
-    return this;
-  }
 
   public String getName() {
     return name;

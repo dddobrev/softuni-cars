@@ -1,45 +1,27 @@
 package bg.softuni.cars.models.entities;
 
-import java.time.Instant;
+import bg.softuni.cars.models.entities.enums.VehicleCategoryEnum;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="models")
-public class ModelEntity {
+public class ModelEntity extends BaseEntity {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
   private String name;
   @Enumerated(EnumType.STRING)
   private VehicleCategoryEnum category;
-  @Column(length = 255)
+  @Column(length = 512)
   private String imageUrl;
   @Column(nullable = false)
   private Integer startYear;
   private Integer endYear;
-  private Instant created;
-  private Instant modified;
   @ManyToOne
   private BrandEntity brand;
-
-  public Long getId() {
-    return id;
-  }
-
-  public ModelEntity setId(Long id) {
-    this.id = id;
-    return this;
-  }
 
   public String getName() {
     return name;
@@ -83,24 +65,6 @@ public class ModelEntity {
 
   public ModelEntity setEndYear(Integer endYear) {
     this.endYear = endYear;
-    return this;
-  }
-
-  public Instant getCreated() {
-    return created;
-  }
-
-  public ModelEntity setCreated(Instant created) {
-    this.created = created;
-    return this;
-  }
-
-  public Instant getModified() {
-    return modified;
-  }
-
-  public ModelEntity setModified(Instant modified) {
-    this.modified = modified;
     return this;
   }
 
