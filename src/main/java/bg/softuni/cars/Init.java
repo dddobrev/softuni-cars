@@ -151,7 +151,7 @@ public class Init implements CommandLineRunner {
     offer.
         setDescription("Excellent fuel economy, convenient, cheap to run, nice sound system, fun to drive around town. Well maintained, good condition.").
         setEngine(EngineEnum.GASOLINE).
-        setImageUrl("https://lh5.googleusercontent.com/vBRDsAqdC06eZf2llikj8kUnVBQ92nWrurLdjf29zrEugHkynC-YGOF2uaekeQrO0DMGqWyjmxlu3m-gJSQq=w2880-h1578-rw").
+        setImageUrl("https://i.imgur.com/hMhtVqe.jpg").
         setMileage(70000).
         setPrice(10000).
         setTransmission(TransmissionEnum.MANUAL).
