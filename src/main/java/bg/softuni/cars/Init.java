@@ -16,9 +16,6 @@ import bg.softuni.cars.repositories.UserRepository;
 import bg.softuni.cars.repositories.UserRoleRepository;
 import java.time.Instant;
 import java.util.List;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.ManyToOne;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -56,7 +53,9 @@ public class Init implements CommandLineRunner {
 
     LOGGER.info("Database initializer starting...");
     if (brandRepository.count() == 0) {
-      ModelEntity fiesta = initFiesta();
+      BrandEntity ford = initFord();
+      ModelEntity fiesta = initFiesta(ford);
+      initEscort(ford);
       initNC750();
       UserEntity user = initUserAndRoles();
       initOffer(user, fiesta);
@@ -64,20 +63,35 @@ public class Init implements CommandLineRunner {
     LOGGER.info("Database initializer complete...");
   }
 
-  private ModelEntity initFiesta() {
+  private BrandEntity initFord() {
     BrandEntity brand = new BrandEntity();
     brand.
         setCreated(Instant.now()).
         setModified(Instant.now()).
         setName("Ford");
-    brandRepository.save(brand);
+    return brandRepository.save(brand);
+  }
 
+  private ModelEntity initFiesta(BrandEntity ford) {
     ModelEntity model = new ModelEntity();
-    model.setBrand(brand).
+    model.setBrand(ford).
         setCategory(VehicleCategoryEnum.CAR).
         setStartYear(1976).
         setImageUrl("https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/2017_Ford_Fiesta_Zetec_Turbo_1.0_Front.jpg/2560px-2017_Ford_Fiesta_Zetec_Turbo_1.0_Front.jpg").
         setName("Fiesta").
+        setCreated(Instant.now()).
+        setModified(Instant.now());
+    return modelRepository.save(model);
+  }
+
+  private ModelEntity initEscort(BrandEntity ford) {
+    ModelEntity model = new ModelEntity();
+    model.setBrand(ford).
+        setCategory(VehicleCategoryEnum.CAR).
+        setStartYear(1968).
+        setEndYear(2000).
+        setImageUrl("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/1978_Ford_Escort_RS2000.jpg/1920px-1978_Ford_Escort_RS2000.jpg").
+        setName("Escort").
         setCreated(Instant.now()).
         setModified(Instant.now());
     return modelRepository.save(model);

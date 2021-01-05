@@ -1,46 +1,58 @@
 package bg.softuni.cars.services.impl;
 
 import bg.softuni.cars.models.entities.BrandEntity;
+import bg.softuni.cars.models.entities.ModelEntity;
 import bg.softuni.cars.models.view.BrandViewModel;
 import bg.softuni.cars.models.view.ModelViewModel;
-import bg.softuni.cars.repositories.BrandRepository;
 import bg.softuni.cars.repositories.ModelRepository;
 import bg.softuni.cars.services.BrandService;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 @Service
 public class BrandServiceImpl implements BrandService {
 
-  private final BrandRepository brandRepository;
-  private final ModelRepository moodelRepository;
+  private final ModelRepository modelRepository;
 
-  public BrandServiceImpl(BrandRepository brandRepository,
-      ModelRepository moodelRepository) {
-    this.brandRepository = brandRepository;
-    this.moodelRepository = moodelRepository;
+  public BrandServiceImpl(ModelRepository modelRepository) {
+    this.modelRepository = modelRepository;
   }
 
   @Override
   public List<BrandViewModel> getAllBrands() {
 
+    List<BrandViewModel> result = new ArrayList<>();
+    List<ModelEntity> allModels =
+        this.modelRepository.findAll();
+
     ModelMapper modelMapper = new ModelMapper();
 
-    List<BrandEntity> brandEntities = this.brandRepository.findAll();
-    return brandEntities.
-        stream().
-        map(be -> {
-          BrandViewModel brandViewModel = new BrandViewModel();
-          modelMapper.map(be, brandViewModel);
-          return brandViewModel;
-        }).collect(Collectors.toList());
+    allModels.forEach(m -> {
+      BrandEntity brand = m.getBrand();
+      Optional<BrandViewModel> brandModel = findByName(brand.getName(), result);
+
+      if (brandModel.isEmpty()) {
+        BrandViewModel newModel = new BrandViewModel();
+        modelMapper.map(brand, newModel);
+        result.add(newModel);
+        brandModel = Optional.of(newModel);
+      }
+
+      ModelViewModel newModel = new ModelViewModel();
+      modelMapper.map(m, newModel);
+      brandModel.get().addModel(newModel);
+    });
+
+    return result;
   }
 
-  // TODO: Extract all models for a given brand
-
-//  private List<ModelViewModel> extractModels(BrandEntity brandEntity) {
-//
-//  }
+  private static Optional<BrandViewModel> findByName(String name, List<BrandViewModel> brands) {
+    return brands.
+        stream().
+        filter(b -> b.getName().equals(name)).
+        findAny();
+  }
 }
