@@ -94,7 +94,10 @@
                     </li>
                 </ul>
                 <div class="card-body">
-                    <a class="card-link" href="/">Details</a>
+                    <a class="card-link"
+                       th:href="@{/offers/{id}(id = *{id})}">
+                        Details
+                    </a>
                 </div>
             </div>
         </div>

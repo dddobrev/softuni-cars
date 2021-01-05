@@ -27,30 +27,34 @@ public class OfferServiceImpl implements OfferService {
 
     return offerEntities.
         stream().
-        map(OfferServiceImpl::map).
+        map(OfferServiceImpl::mapToSummary).
         collect(Collectors.toList());
   }
 
   @Override
-  public Optional<OfferDetailsViewModel> getOfferDetails(int offerId) {
-
-    Optional<OfferEntity> offerEntityOpt =
-        offerRepository.findById(offerId);
-
-    if (offerEntityOpt.isEmpty()) {
-      return Optional.empty();
-    } else {
-      return Optional.empty();
-    }
+  public Optional<OfferDetailsViewModel> getOfferDetails(long offerId) {
+    return offerRepository.
+        findById(offerId).
+        map(OfferServiceImpl::mapToDetails);
   }
 
-  private static OfferSummaryViewModel map(OfferEntity offerEntity) {
-    ModelMapper modelMapper = new ModelMapper();
+  private static OfferSummaryViewModel mapToSummary(OfferEntity offerEntity) {
     OfferSummaryViewModel offerModel = new OfferSummaryViewModel();
+    mapToSummary(offerEntity, offerModel);
+    return offerModel;
+  }
+
+  private static void mapToSummary(OfferEntity offerEntity, OfferSummaryViewModel offerModel) {
+    ModelMapper modelMapper = new ModelMapper();
     modelMapper.map(offerEntity, offerModel);
     offerModel.
         setModel(offerEntity.getModel().getName()).
         setBrand(offerEntity.getModel().getBrand().getName());
+  }
+
+  private static OfferDetailsViewModel mapToDetails(OfferEntity offerEntity) {
+    OfferDetailsViewModel offerModel = new OfferDetailsViewModel();
+    mapToSummary(offerEntity, offerModel);
     return offerModel;
   }
 }

@@ -1,6 +1,8 @@
 package bg.softuni.cars.models.view;
 
 public class OfferSummaryViewModel {
+
+  private int id;
   private String model;
   private String brand;
   private String engine;
@@ -9,6 +11,15 @@ public class OfferSummaryViewModel {
   private int price;
   private String transmission;
   private int year;
+
+  public int getId() {
+    return id;
+  }
+
+  public OfferSummaryViewModel setId(int id) {
+    this.id = id;
+    return this;
+  }
 
   public String getModel() {
     return model;

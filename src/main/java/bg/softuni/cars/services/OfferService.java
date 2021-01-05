@@ -9,5 +9,5 @@ public interface OfferService {
 
   List<OfferSummaryViewModel> getAllOffers();
 
-  Optional<OfferDetailsViewModel> getOfferDetails(int offerId);
+  Optional<OfferDetailsViewModel> getOfferDetails(long offerId);
 }
