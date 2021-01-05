@@ -55,6 +55,9 @@ public class OfferServiceImpl implements OfferService {
   private static OfferDetailsViewModel mapToDetails(OfferEntity offerEntity) {
     OfferDetailsViewModel offerModel = new OfferDetailsViewModel();
     mapToSummary(offerEntity, offerModel);
+    offerModel.
+        setSellerFirstName(offerEntity.getSeller().getFirstName()).
+        setSellerLastName(offerEntity.getSeller().getLastName());
     return offerModel;
   }
 }
