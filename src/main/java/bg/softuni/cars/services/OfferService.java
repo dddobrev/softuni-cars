@@ -1,5 +1,6 @@
 package bg.softuni.cars.services;
 
+import bg.softuni.cars.models.service.OfferServiceModel;
 import bg.softuni.cars.models.view.OfferDetailsViewModel;
 import bg.softuni.cars.models.view.OfferSummaryViewModel;
 import java.util.List;
