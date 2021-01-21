@@ -6,7 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -24,8 +23,8 @@ public class OfferEntity extends BaseEntity {
   private int year;
   @ManyToOne
   private ModelEntity model;
-  @ManyToOne
-  private UserEntity seller;
+//  @ManyToOne
+//  private UserEntity seller;
 
   public String getDescription() {
     return description;
@@ -100,14 +99,14 @@ public class OfferEntity extends BaseEntity {
     return this;
   }
 
-  public UserEntity getSeller() {
-    return seller;
-  }
-
-  public OfferEntity setSeller(UserEntity seller) {
-    this.seller = seller;
-    return this;
-  }
+//  public UserEntity getSeller() {
+//    return seller;
+//  }
+//
+//  public OfferEntity setSeller(UserEntity seller) {
+//    this.seller = seller;
+//    return this;
+//  }
 
   @Override
   public String toString() {
@@ -120,7 +119,7 @@ public class OfferEntity extends BaseEntity {
         ", transmission=" + transmission +
         ", year=" + year +
         ", model=" + model +
-        ", seller=" + seller +
+//        ", seller=" + seller +
         '}';
   }
 }

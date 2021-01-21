@@ -2,11 +2,21 @@ package bg.softuni.cars.models.view;
 
 public class ModelViewModel {
 
+  private Long id;
   private String name;
   private String category;
   private String imageUrl;
   private Integer startYear;
   private Integer endYear;
+
+  public Long getId() {
+    return id;
+  }
+
+  public ModelViewModel setId(Long id) {
+    this.id = id;
+    return this;
+  }
 
   public String getName() {
     return name;

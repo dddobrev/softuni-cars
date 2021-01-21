@@ -8,6 +8,8 @@ import java.util.Optional;
 
 public interface OfferService {
 
+  void createOffer(OfferServiceModel offerServiceModel);
+
   List<OfferSummaryViewModel> getAllOffers();
 
   Optional<OfferDetailsViewModel> getOfferDetails(long offerId);

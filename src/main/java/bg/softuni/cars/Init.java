@@ -157,7 +157,7 @@ public class Init implements CommandLineRunner {
         setTransmission(TransmissionEnum.MANUAL).
         setYear(2016).
         setModel(model).
-        setSeller(seller).
+        //setSeller(seller).
         setCreated(Instant.now()).
         setModified(Instant.now());
     offerRepository.save(offer);
