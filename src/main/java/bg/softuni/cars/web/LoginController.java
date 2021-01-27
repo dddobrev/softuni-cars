@@ -19,6 +19,12 @@ public class LoginController {
     this.userService = userService;
   }
 
+  @GetMapping("/users/logout")
+  public String logout() {
+    currentUser.setAnonymous(true);
+    return "index";
+  }
+
   @GetMapping("/users/login")
   public String showLogin() {
     return "auth-login";
@@ -29,7 +35,9 @@ public class LoginController {
 
     if (userService.isLoginValid(userLoginServiceModel.getUsername(),
         userLoginServiceModel.getPassword())) {
-      currentUser.setUserName(userLoginServiceModel.getUsername());
+      currentUser.
+          setUserName(userLoginServiceModel.getUsername()).
+          setAnonymous(false);
     }
 
     return "redirect:/";

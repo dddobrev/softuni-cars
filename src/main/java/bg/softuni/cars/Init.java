@@ -19,6 +19,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 /**
@@ -34,18 +35,21 @@ public class Init implements CommandLineRunner {
   private final UserRepository userRepository;
   private final UserRoleRepository userRoleRepository;
   private final OfferRepository offerRepository;
+  private final PasswordEncoder passwordEncoder;
 
   public Init(BrandRepository brandRepository,
       ModelRepository modelRepository,
       UserRepository userRepository,
       UserRoleRepository userRoleRepository,
-      OfferRepository offerRepository) {
+      OfferRepository offerRepository,
+      PasswordEncoder passwordEncoder) {
 
     this.userRepository = userRepository;
     this.userRoleRepository = userRoleRepository;
     this.brandRepository = brandRepository;
     this.modelRepository = modelRepository;
     this.offerRepository = offerRepository;
+    this.passwordEncoder = passwordEncoder;
   }
 
   @Override
@@ -136,6 +140,7 @@ public class Init implements CommandLineRunner {
     user.setFirstName("Lachezar").
         setLastName("Balev").
         setUserName("luchob").
+        setPassword(passwordEncoder.encode("topsecret")).
         setActive(true).
         setImageUrl("https://avatars0.githubusercontent.com/u/10339738?s=460&u=5860fbe961c7216971cdb5102176834e3e836e64&v=4").
         setCreated(Instant.now()).

@@ -1,10 +1,8 @@
 package bg.softuni.cars.models.entities;
 
 import java.util.List;
-import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -12,6 +10,7 @@ import javax.persistence.Table;
 public class UserEntity extends BaseEntity {
 
   private String userName;
+  private String password;
   private String firstName;
   private String lastName;
   private boolean isActive;
@@ -76,10 +75,20 @@ public class UserEntity extends BaseEntity {
     return this;
   }
 
+  public String getPassword() {
+    return password;
+  }
+
+  public UserEntity setPassword(String password) {
+    this.password = password;
+    return this;
+  }
+
   @Override
   public String toString() {
     return "UserEntity{" +
         "userName='" + userName + '\'' +
+        ", password=[SECRET]" + '\'' +
         ", firstName='" + firstName + '\'' +
         ", lastName='" + lastName + '\'' +
         ", isActive=" + isActive +
