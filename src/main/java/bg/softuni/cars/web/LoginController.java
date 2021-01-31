@@ -5,6 +5,7 @@ import bg.softuni.cars.services.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -23,17 +24,18 @@ public class LoginController {
     return "redirect:/";
   }
 
+  @ModelAttribute("userModel")
+  public UserLoginServiceModel userModel(){
+    return new UserLoginServiceModel();
+  }
+
   @GetMapping("/users/login")
   public String showLogin(Model model) {
-    if (!model.containsAttribute("userModel")) {
-      model.addAttribute("userModel", new UserLoginServiceModel());
-      model.addAttribute("notFound", false);
-    }
     return "auth-login";
   }
 
   @PostMapping("/users/login")
-  public String login(UserLoginServiceModel userModel,
+  public String login(@ModelAttribute UserLoginServiceModel userModel,
       RedirectAttributes redirectAttributes) {
 
     if (userService.isLoginValid(userModel.getUsername(),
