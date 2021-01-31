@@ -1,10 +1,14 @@
 package bg.softuni.cars.services.impl;
 
 import bg.softuni.cars.models.entities.UserEntity;
+import bg.softuni.cars.models.entities.UserRoleEntity;
+import bg.softuni.cars.models.entities.enums.UserRoleEnum;
 import bg.softuni.cars.repositories.UserRepository;
 import bg.softuni.cars.security.CurrentUser;
 import bg.softuni.cars.services.UserService;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -36,8 +40,20 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public void loginUser(String userName) {
+
+    UserEntity userEntity = userRepository.
+        findByUserName(userName).
+        orElseThrow(() -> new IllegalArgumentException("User with name " + userName + " not found!"));
+
+    List<UserRoleEnum> userRoles = userEntity.
+        getUserRoles().
+        stream().
+        map(UserRoleEntity::getUserRole).
+        collect(Collectors.toList());
+
     currentUser.
-        setUserName(userName).
+        setUserName(userEntity.getUserName()).
+        addUserRoles(userRoles).
         setAnonymous(false);
   }
 

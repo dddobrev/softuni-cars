@@ -2,6 +2,7 @@ package bg.softuni.cars.models.entities;
 
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -16,7 +17,7 @@ public class UserEntity extends BaseEntity {
   private boolean isActive;
 
   //if OneToMany there will be a unique key in the rel table
-  @ManyToMany
+  @ManyToMany(fetch = FetchType.EAGER)
   private List<UserRoleEntity> userRoles;
   private String imageUrl;
 

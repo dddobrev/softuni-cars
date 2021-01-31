@@ -61,18 +61,17 @@ public class Init implements CommandLineRunner {
       ModelEntity fiesta = initFiesta(ford);
       initEscort(ford);
       initNC750();
-      UserEntity user = initUserAndRoles();
-      initOffer(user, fiesta);
+      initUserAndRoles();
+      initOffer(fiesta);
     }
     LOGGER.info("Database initializer complete...");
   }
 
   private BrandEntity initFord() {
     BrandEntity brand = new BrandEntity();
-    brand.
+    brand.setName("Ford").
         setCreated(Instant.now()).
-        setModified(Instant.now()).
-        setName("Ford");
+        setModified(Instant.now());
     return brandRepository.save(brand);
   }
 
@@ -103,10 +102,9 @@ public class Init implements CommandLineRunner {
 
   private void initNC750() {
     BrandEntity brand = new BrandEntity();
-    brand.
+    brand.setName("Honda").
         setCreated(Instant.now()).
-        setModified(Instant.now()).
-        setName("Honda");
+        setModified(Instant.now());
     brandRepository.save(brand);
 
     ModelEntity model = new ModelEntity();
@@ -120,7 +118,7 @@ public class Init implements CommandLineRunner {
     modelRepository.save(model);
   }
 
-  private UserEntity initUserAndRoles() {
+  private void initUserAndRoles() {
 
     UserRoleEntity userRole = new UserRoleEntity();
     userRole.
@@ -136,22 +134,39 @@ public class Init implements CommandLineRunner {
     userRole = userRoleRepository.save(userRole);
     adminRole = userRoleRepository.save(adminRole);
 
-    UserEntity user = new UserEntity();
-    user.setFirstName("Lachezar").
-        setLastName("Balev").
-        setUserName("luchob").
+    UserEntity admin = new UserEntity();
+    admin.setFirstName("Редник").
+        setLastName("Текерлеков").
+        setUserName("admin").
         setPassword(passwordEncoder.encode("topsecret")).
         setActive(true).
-        setImageUrl("https://avatars0.githubusercontent.com/u/10339738?s=460&u=5860fbe961c7216971cdb5102176834e3e836e64&v=4").
+        setImageUrl("https://images06.snimka.bg/000633535.jpg?r=0").
         setCreated(Instant.now()).
         setModified(Instant.now());
 
-    user.setUserRoles(List.of(userRole, adminRole));
-    return userRepository.save(user);
+    admin.setUserRoles(List.of(userRole, adminRole));
+
+
+    UserEntity user = new UserEntity();
+    user.setFirstName("Редник").
+        setLastName("Манасиева").
+        setUserName("user").
+        setPassword(passwordEncoder.encode("topsecret")).
+        setActive(true).
+        setImageUrl("https://images06.snimka.bg/000633535.jpg?r=0").
+        setCreated(Instant.now()).
+        setModified(Instant.now());
+
+    user.setUserRoles(List.of(userRole));
+
+    userRepository.saveAll(List.of(admin, user));
   }
 
-  private void initOffer(UserEntity seller,
+  private void initOffer(
       ModelEntity model) {
+
+    UserEntity seller = userRepository.findAll().get(0);
+
     OfferEntity offer = new OfferEntity();
     offer.
         setDescription("Excellent fuel economy, convenient, cheap to run, nice sound system, fun to drive around town. Well maintained, good condition.").

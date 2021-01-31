@@ -24,7 +24,7 @@
         <li class="nav-item">
           <a class="nav-link" href="/offers/all">All Offers</a>
         </li>
-        <li class="nav-item dropdown">
+        <li th:if="${@currentUser.isAdmin()}" class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button"
              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Admin
@@ -37,10 +37,12 @@
           </div>
         </li>
         <li th:if="${@currentUser.isLoggedIn}" class="nav-item">
-          <div class="form-inline my-2 my-lg-0 border px-3">
-            <div class="logged-user" th:text="${@currentUser.userName}"></div>
-            <a class="nav-link" href="/users/logout">Logout</a>
-          </div>
+          <form method="POST"
+                th:action="@{/users/logout}">
+            <div class="form-inline my-2 my-lg-0 border px-3">
+              <input type="submit" class="nav-link" th:value="'Logout ' + ${@currentUser.userName}"/>
+            </div>
+          </form>
         </li>
 
         <li th:if="${@currentUser.anonymous}" class="nav-item">

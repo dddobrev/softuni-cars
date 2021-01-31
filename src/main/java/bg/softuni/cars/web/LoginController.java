@@ -17,10 +17,10 @@ public class LoginController {
     this.userService = userService;
   }
 
-  @GetMapping("/users/logout")
+  @PostMapping("/users/logout")
   public String logout() {
     userService.logoutUser();
-    return "index";
+    return "redirect:/";
   }
 
   @GetMapping("/users/login")
