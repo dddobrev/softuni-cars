@@ -7,8 +7,9 @@ import bg.softuni.cars.models.view.OfferDetailsViewModel;
 import bg.softuni.cars.models.view.OfferSummaryViewModel;
 import bg.softuni.cars.repositories.ModelRepository;
 import bg.softuni.cars.repositories.OfferRepository;
+import bg.softuni.cars.repositories.UserRepository;
+import bg.softuni.cars.security.CurrentUser;
 import bg.softuni.cars.services.OfferService;
-import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -20,11 +21,17 @@ public class OfferServiceImpl implements OfferService {
 
   private final OfferRepository offerRepository;
   private final ModelRepository modelRepository;
+  private final CurrentUser currentUser;
+  private final UserRepository userRepository;
 
   public OfferServiceImpl(OfferRepository offerRepository,
-      ModelRepository modelRepository) {
+      ModelRepository modelRepository,
+      CurrentUser currentUser,
+      UserRepository userRepository) {
     this.offerRepository = offerRepository;
     this.modelRepository = modelRepository;
+    this.currentUser = currentUser;
+    this.userRepository = userRepository;
   }
 
   @Override
@@ -46,8 +53,7 @@ public class OfferServiceImpl implements OfferService {
 
     modelMapper.map(offerServiceModel, newOffer);
 
-    newOffer.setCreated(Instant.now());
-    newOffer.setModified(Instant.now());
+    newOffer.setSeller(userRepository.findByUserName(currentUser.getUserName()).orElseThrow());
     newOffer.setId(null);
 
     return newOffer;

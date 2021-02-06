@@ -2,17 +2,36 @@ package bg.softuni.cars.models.service;
 
 import bg.softuni.cars.models.entities.enums.EngineEnum;
 import bg.softuni.cars.models.entities.enums.TransmissionEnum;
+import bg.softuni.cars.models.validators.PresentOrPast;
 import java.math.BigDecimal;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 
 public class OfferServiceModel {
 
+  @NotNull
   private EngineEnum engine;
+  @NotNull
   private TransmissionEnum transmission;
+  @PresentOrPast(minYear = 1930)
   private Integer year;
+  @NotNull
   private Long modelId;
+  @NotNull
+  @DecimalMin(value = "1")
+  @DecimalMax(value = "1000000")
   private BigDecimal price;
+  @NotNull
+  @Positive
   private Integer mileage;
+  @NotBlank
+  @Size(min = 10)
   private String description;
+  @NotBlank
   private String imageUrl;
 
   public Integer getMileage() {

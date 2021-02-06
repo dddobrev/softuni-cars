@@ -69,9 +69,7 @@ public class Init implements CommandLineRunner {
 
   private BrandEntity initFord() {
     BrandEntity brand = new BrandEntity();
-    brand.setName("Ford").
-        setCreated(Instant.now()).
-        setModified(Instant.now());
+    brand.setName("Ford");
     return brandRepository.save(brand);
   }
 
@@ -81,9 +79,7 @@ public class Init implements CommandLineRunner {
         setCategory(VehicleCategoryEnum.CAR).
         setStartYear(1976).
         setImageUrl("https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/2017_Ford_Fiesta_Zetec_Turbo_1.0_Front.jpg/2560px-2017_Ford_Fiesta_Zetec_Turbo_1.0_Front.jpg").
-        setName("Fiesta").
-        setCreated(Instant.now()).
-        setModified(Instant.now());
+        setName("Fiesta");
     return modelRepository.save(model);
   }
 
@@ -94,17 +90,13 @@ public class Init implements CommandLineRunner {
         setStartYear(1968).
         setEndYear(2000).
         setImageUrl("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/1978_Ford_Escort_RS2000.jpg/1920px-1978_Ford_Escort_RS2000.jpg").
-        setName("Escort").
-        setCreated(Instant.now()).
-        setModified(Instant.now());
+        setName("Escort");
     return modelRepository.save(model);
   }
 
   private void initNC750() {
     BrandEntity brand = new BrandEntity();
-    brand.setName("Honda").
-        setCreated(Instant.now()).
-        setModified(Instant.now());
+    brand.setName("Honda");
     brandRepository.save(brand);
 
     ModelEntity model = new ModelEntity();
@@ -112,9 +104,7 @@ public class Init implements CommandLineRunner {
         setCategory(VehicleCategoryEnum.MOTORCYCLE).
         setStartYear(2012).
         setImageUrl("https://www.bultraco-sofia.bg/sites/default/files/overview_01_16.jpg").
-        setName("NC").
-        setCreated(Instant.now()).
-        setModified(Instant.now());
+        setName("NC");
     modelRepository.save(model);
   }
 
@@ -122,15 +112,11 @@ public class Init implements CommandLineRunner {
 
     UserRoleEntity userRole = new UserRoleEntity();
     userRole.
-        setUserRole(UserRoleEnum.USER).
-        setCreated(Instant.now()).
-        setModified(Instant.now());
+        setUserRole(UserRoleEnum.USER);
 
     UserRoleEntity adminRole = new UserRoleEntity();
     adminRole.
-        setUserRole(UserRoleEnum.ADMIN).
-        setCreated(Instant.now()).
-        setModified(Instant.now());
+        setUserRole(UserRoleEnum.ADMIN);
     userRole = userRoleRepository.save(userRole);
     adminRole = userRoleRepository.save(adminRole);
 
@@ -140,12 +126,9 @@ public class Init implements CommandLineRunner {
         setUserName("admin").
         setPassword(passwordEncoder.encode("topsecret")).
         setActive(true).
-        setImageUrl("https://images06.snimka.bg/000633535.jpg?r=0").
-        setCreated(Instant.now()).
-        setModified(Instant.now());
+        setImageUrl("https://images06.snimka.bg/000633535.jpg?r=0");
 
     admin.setUserRoles(List.of(userRole, adminRole));
-
 
     UserEntity user = new UserEntity();
     user.setFirstName("Редник").
@@ -153,9 +136,7 @@ public class Init implements CommandLineRunner {
         setUserName("user").
         setPassword(passwordEncoder.encode("topsecret")).
         setActive(true).
-        setImageUrl("https://images06.snimka.bg/000633535.jpg?r=0").
-        setCreated(Instant.now()).
-        setModified(Instant.now());
+        setImageUrl("https://images06.snimka.bg/000633535.jpg?r=0");
 
     user.setUserRoles(List.of(userRole));
 
@@ -176,10 +157,8 @@ public class Init implements CommandLineRunner {
         setPrice(10000).
         setTransmission(TransmissionEnum.MANUAL).
         setYear(2016).
-        setModel(model).
-        //setSeller(seller).
-        setCreated(Instant.now()).
-        setModified(Instant.now());
+        setModel(model);
+        //setSeller(seller)
     offerRepository.save(offer);
   }
 }

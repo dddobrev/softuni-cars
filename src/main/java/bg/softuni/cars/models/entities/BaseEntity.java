@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 
 @MappedSuperclass
 public class BaseEntity {
@@ -25,6 +27,17 @@ public class BaseEntity {
   public BaseEntity setId(Long id) {
     this.id = id;
     return this;
+  }
+
+  @PrePersist
+  public void prePersist() {
+    setCreated(Instant.now());
+    setModified(Instant.now());
+  }
+
+  @PreUpdate
+  public void preUpdate() {
+    setModified(Instant.now());
   }
 
   public Instant getCreated() {
