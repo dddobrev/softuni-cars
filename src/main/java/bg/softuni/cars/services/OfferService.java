@@ -13,4 +13,6 @@ public interface OfferService {
   List<OfferSummaryViewModel> getAllOffers();
 
   Optional<OfferDetailsViewModel> getOfferDetails(long offerId);
+
+  void removeOffer(long offerId);
 }

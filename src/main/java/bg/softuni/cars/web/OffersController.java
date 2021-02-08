@@ -3,7 +3,6 @@ package bg.softuni.cars.web;
 import bg.softuni.cars.models.entities.enums.EngineEnum;
 import bg.softuni.cars.models.entities.enums.TransmissionEnum;
 import bg.softuni.cars.models.service.OfferServiceModel;
-import bg.softuni.cars.models.service.UserLoginServiceModel;
 import bg.softuni.cars.models.view.OfferDetailsViewModel;
 import bg.softuni.cars.services.BrandService;
 import bg.softuni.cars.services.OfferService;
@@ -11,6 +10,7 @@ import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -50,6 +50,14 @@ public class OffersController {
     model.addAttribute("transmissions", TransmissionEnum.values());
     model.addAttribute("brands", brandService.getAllBrands());
     return "offer-add";
+  }
+
+  @DeleteMapping("/delete/{id}")
+  public String removeOffer(@PathVariable("id") long id) {
+
+    offerService.removeOffer(id);
+
+    return "redirect:/offers/all";
   }
 
   @PostMapping("/add")

@@ -74,7 +74,12 @@ public class OfferServiceImpl implements OfferService {
   public Optional<OfferDetailsViewModel> getOfferDetails(long offerId) {
     return offerRepository.
         findById(offerId).
-        map(OfferServiceImpl::mapToDetails);
+        map(this::mapToDetails);
+  }
+
+  @Override
+  public void removeOffer(long offerId) {
+    offerRepository.deleteById(offerId);
   }
 
   private static OfferSummaryViewModel mapToSummary(OfferEntity offerEntity) {
@@ -91,12 +96,14 @@ public class OfferServiceImpl implements OfferService {
         setBrand(offerEntity.getModel().getBrand().getName());
   }
 
-  private static OfferDetailsViewModel mapToDetails(OfferEntity offerEntity) {
+  private OfferDetailsViewModel mapToDetails(OfferEntity offerEntity) {
     OfferDetailsViewModel offerModel = new OfferDetailsViewModel();
     mapToSummary(offerEntity, offerModel);
-//    offerModel.
-//        setSellerFirstName(offerEntity.getSeller().getFirstName()).
-//        setSellerLastName(offerEntity.getSeller().getLastName());
+    offerModel.
+        setSellerFirstName(offerEntity.getSeller().getFirstName()).
+        setSellerLastName(offerEntity.getSeller().getLastName()).
+        setEditable(currentUser.isAdmin() || offerEntity.getSeller().getUserName().equals(currentUser.getUserName()));
+
     return offerModel;
   }
 }

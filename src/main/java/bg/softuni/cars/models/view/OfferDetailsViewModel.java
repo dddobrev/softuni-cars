@@ -8,6 +8,16 @@ public class OfferDetailsViewModel extends OfferSummaryViewModel {
   private Instant offerModified;
   private String sellerFirstName;
   private String sellerLastName;
+  private boolean isEditable;
+
+  public boolean isEditable() {
+    return isEditable;
+  }
+
+  public OfferDetailsViewModel setEditable(boolean editable) {
+    isEditable = editable;
+    return this;
+  }
 
   public Instant getOfferCreated() {
     return offerCreated;

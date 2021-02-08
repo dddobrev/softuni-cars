@@ -43,9 +43,14 @@
                     </div>
                 </li>
             </ul>
-            <div class="card-body">
+            <div class="card-body" th:if="*{isEditable()}">
                 <a class="card-link" href="/">Update</a>
-                <a class="card-link" href="/">Delete</a>
+                <form th:action="@{/offers/delete/{id}/(id=*{id})}"
+                    th:method="delete">
+                    <input class="card-link"
+                           type="submit"
+                           value="Delete"/>
+                </form>
             </div>
         </div>
         <div class="offer card col-sm-2 col-md-3  col-lg-4 m-1 p-0">
